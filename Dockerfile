@@ -10,7 +10,9 @@ RUN echo "Europe/Berlin" > /etc/timezone
 
 RUN apt-get update && apt-get install -y  --no-install-recommends \
 		texlive-full \
-    wget
+    wget \
+    make \
+		git 
 		#pandoc-citeproc \
     
 RUN mkdir -p /installation/ && \
