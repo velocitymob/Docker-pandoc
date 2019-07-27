@@ -29,4 +29,4 @@ RUN wget https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.4.1
 	&& rm -rf /var/lib/apt/lists/* 
 ################################################################################
 # Install full latex stack
-# RUN apt-get install -y -o Acquire::Retries=10 --no-install-recommends texlive-full
+RUN apt-get install -y -o Acquire::Retries=10 --no-install-recommends texlive-full
