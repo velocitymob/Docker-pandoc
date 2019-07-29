@@ -11,7 +11,7 @@ RUN echo "Europe/Berlin" > /etc/timezone
 RUN apt-get update && apt-get install -y  --no-install-recommends \
 	texlive-full \
 	wget \
-	make \
+	cmake \
 	git 
     
 RUN mkdir -p /installation/ && \
