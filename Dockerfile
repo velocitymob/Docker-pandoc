@@ -9,8 +9,9 @@ ENV DEBCONF_NONINTERACTIVE_SEEN true
 RUN echo "Europe/Berlin" > /etc/timezone
 
 RUN apt-get update && apt-get install -y  --no-install-recommends \
-	texlive-full \
 	wget \
+	buil-essential \
+	spell \
 	cmake \
 	git 
     
@@ -25,6 +26,7 @@ RUN wget https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.4.1
 	&& mv pandoc-cross* /usr/bin/ \
 	&& dpkg -i /installation/pandoc.deb \
 	&& rm -rf /installation linux-pandoc* \
+	&& mkdir -p /tmp/workspace \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* 
 ################################################################################
