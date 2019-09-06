@@ -1,7 +1,5 @@
 FROM ubuntu:18.04
-
 MAINTAINER Giovanni Perez Montt <Giovanni.perez@velocitymobility.de>
-
 ################################################################################
 # Install pandoc
 ENV DEBIAN_FRONTEND noninteractive
@@ -10,7 +8,7 @@ RUN echo "Europe/Berlin" > /etc/timezone
 
 RUN apt-get update && apt-get install -y  --no-install-recommends \
 	wget \
-	buil-essential \
+	build-essential \
 	spell \
 	cmake \
 	git 
