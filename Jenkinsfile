@@ -1,18 +1,14 @@
 pipeline {
-  agent any
-  stages {
-    stage('test') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile'
-        }
+  agent {
+    dockerfile {
+      filename 'buildit'
+    }
 
-      }
-      environment {
-        Test = '1'
-      }
+  }
+  stages {
+    stage('buildit') {
       steps {
-        sh 'bash echo "test"'
+        sh 'docker built -t test .'
       }
     }
   }
