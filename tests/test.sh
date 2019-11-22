@@ -18,7 +18,7 @@ SRC=sample-presentation.md
 
 DOCKER_OPT="--rm --volumes-from pandoc-volumes"
 
-PANDOC="docker run $DOCKER_OPT dalibo/pandocker:$TAG --verbose"
+PANDOC="docker run $DOCKER_OPT velocitymob/pandocker:$TAG --verbose"
 
 IN=tests/input
 EXPECTED=tests/expected
@@ -60,7 +60,7 @@ $PANDOC -t revealjs $IN/$SRC --standalone --self-contained -V revealjs-url:https
 
 # 05. Check bug #36 : wrapper introduces quote errors
 # https://github.com/dalibo/pandocker/issues/18
-PANDOCSH="docker run $DOCKER_OPT --entrypoint=pandoc1.sh dalibo/pandocker:$TAG --verbose"
+PANDOCSH="docker run $DOCKER_OPT --entrypoint=pandoc1.sh velocitymob/pandocker:$TAG --verbose"
 DEST=tmp-handout.bug36.pdf
 $PANDOCSH --latex-engine=xelatex --no-tex-ligatures $IN/$SRC -o $OUT/$DEST
 #docker cp pandoc-volumes:/pandoc/$DEST .
@@ -101,7 +101,7 @@ $PANDOC --filter pandoc-include $IN/include.md -o $OUT/include.complete.md
 $PANDOC --filter pandoc-codeblock-include $IN/codeblock_include.md -o $OUT/codeblock_include.complete.md
 
 # 15. dia
-DIA="docker run $DOCKER_OPT --entrypoint dia dalibo/pandocker:$TAG --verbose"
+DIA="docker run $DOCKER_OPT --entrypoint dia velocitymob/pandocker:$TAG --verbose"
 $DIA $IN/db.dia --export $OUT/db.svg
 
 ##

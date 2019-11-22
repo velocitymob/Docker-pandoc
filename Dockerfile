@@ -4,7 +4,8 @@
 #    https://github.com/jagregory/pandoc-docker/blob/master/Dockerfile
 #    https://github.com/geometalab/docker-pandoc/blob/develop/Dockerfile
 #    https://github.com/vpetersson/docker-pandoc/blob/master/Dockerfile
-
+#    https://github.com/dalibo/pandocker/blob/stable/Dockerfile
+#
 FROM debian:stretch-slim
 
 # Proxy to APT cacher: e.g. http://apt-cacher-ng.docker:3142
@@ -96,7 +97,7 @@ ADD cache/ ./cache
 #
 # Install pandoc from upstream. Debian package is too old.
 #
-ARG PANDOC_VERSION=2.7
+ARG PANDOC_VERSION=2.7.3
 ADD fetch-pandoc.sh /usr/local/bin/
 RUN fetch-pandoc.sh ${PANDOC_VERSION} ./cache/pandoc.deb && \
     dpkg --install ./cache/pandoc.deb && \
@@ -112,11 +113,17 @@ RUN pip3 --no-cache-dir install --find-links file://${PWD}/cache -r requirements
 #
 # eisvogel template
 #
+ARG EISVOGEL_REPO=https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template
+ARG EISVOGEL_VERSION=v1.3.0
 ARG TEMPLATES_DIR=/root/.pandoc/templates
 RUN mkdir -p ${TEMPLATES_DIR} && \
-    wget https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex -O ${TEMPLATES_DIR}/eisvogel.latex
+    wget ${EISVOGEL_REPO}/${EISVOGEL_VERSION}/eisvogel.tex -O ${TEMPLATES_DIR}/eisvogel.latex
+
+# « Debian/buster comes with TL2018, and thus refuses to work with the 2019 repositories »
+# https://tex.stackexchange.com/a/495222
+#
 RUN tlmgr init-usertree && \
-    tlmgr install ly1 inconsolata sourcesanspro sourcecodepro mweights noto
+    tlmgr install ly1 sourcesanspro inconsolata sourcesanspro sourcecodepro mweights noto
 
 #
 # emojis support for latex
