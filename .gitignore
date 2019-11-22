@@ -1,0 +1,7 @@
+cache/*
+!.gitkeep
+*.swp
+*.swo
+tmp-*
+tests/output/
+
